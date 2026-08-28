@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Rahemat ❤️</title>
+
+<style>
+*{box-sizing:border-box}
+html,body{
+  margin:0;width:100%;height:100%;overflow:hidden;
+  font-family:Arial,sans-serif;
+}
+body{
+  background:#080b18;
+}
+#app{
+  width:100%;height:100vh;position:relative;overflow:hidden;
+  background:radial-gradient(circle at 50% 35%,#49305d,#17182f 48%,#070812);
+}
+.screen{
+  position:absolute;inset:0;display:flex;
+  align-items:center;justify-content:center;
+  flex-direction:column;
+  transition:opacity 1s,transform 1s;
+}
+.hidden{opacity:0;pointer-events:none;transform:scale(1.08)}
+
+h1{
+  color:white;text-align:center;
+  font-size:30px;
+  text-shadow:0 0 18px #ff6da6;
+}
+.sub{
+  color:#eee;font-size:16px;text-align:center;
+  margin-top:8px;
+}
+
+#play{
+  margin-top:35px;padding:15px 32px;
+  border:0;border-radius:30px;
+  background:#ff5b99;color:white;
+  font-size:18px;font-weight:bold;
+  box-shadow:0 0 25px #ff5b99;
+}
+
+#game h2{
+  position:absolute;top:7%;width:100%;
+  text-align:center;color:white;font-size:25px;
+}
+
+#target{
+  position:absolute;
+  right:12%;top:42%;
+  width:95px;height:95px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:58px;
+  animation:pulse 1s infinite;
+}
+
+#arrow{
+  position:absolute;
+  left:12%;top:43%;
+  width:82px;height:82px;
+  border-radius:50%;
+  background:#ff4f91;
+  display:flex;align-items:center;justify-content:center;
+  font-size:45px;
+  box-shadow:0 0 30px #ff4f91;
+  touch-action:none;
+  user-select:none;
+}
+
+#hint{
+  position:absolute;bottom:12%;
+  width:100%;text-align:center;color:white;
+}
+
+@keyframes pulse{
+  50%{transform:scale(1.15)}
+}
+
+#burst{
+  position:absolute;inset:0;pointer-events:none;
+}
+
+.particle{
+  position:absolute;font-size:25px;
+  animation:explode 1.3s forwards;
+}
+@keyframes explode{
+  to{
+    transform:translate(var(--x),var(--y)) scale(0);
+    opacity:0;
+  }
+}
+
+#birthday{
+  background:
+    radial-gradient(circle at 50% 25%,#4b315d,#17172d 55%,#070812);
+}
+
+#birthday h1{
+  font-size:39px;
+  margin:0;
+  animation:zoom 1.4s ease forwards;
+}
+
+@keyframes zoom{
+  from{transform:scale(.3);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.tree{
+  position:relative;
+  width:280px;height:390px;
+  margin-top:20px;
+}
+
+.trunk{
+  position:absolute;
+  bottom:0;left:50%;
+  width:24px;height:210px;
+  transform:translateX(-50%);
+  background:#75442e;
+  border-radius:20px;
+}
+
+.branch{
+  position:absolute;
+  height:13px;
+  background:#75442e;
+  border-radius:20px;
+  transform-origin:left;
+}
+.b1{left:50%;bottom:150px;width:130px;transform:rotate(-43deg)}
+.b2{left:50%;bottom:125px;width:125px;transform:rotate(43deg)}
+.b3{left:50%;bottom:95px;width:100px;transform:rotate(-62deg)}
+.b4{left:50%;bottom:75px;width:95px;transform:rotate(62deg)}
+
+.leaf{
+  position:absolute;
+  font-size:25px;
+  animation:leafIn .8s both;
+}
+@keyframes leafIn{
+  from{transform:scale(0);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.message{
+  color:#ffd5e5;
+  font-size:19px;
+  text-align:center;
+  line-height:1.5;
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+  <section id="start" class="screen">
+    <div style="font-size:70px">💖</div>
+    <h1>A Little Surprise<br>For Rahemat</h1>
+    <div class="sub">Ready for your birthday surprise? ✨</div>
+    <button id="play">START ❤️</button>
+  </section>
+
+  <section id="game" class="screen hidden">
+    <h2>🏹 Hit the Heart ❤️</h2>
+    <div id="target">❤️</div>
+    <div id="arrow">🏹</div>
+    <div id="hint">Arrow ko drag karke heart tak le jao</div>
+    <div id="burst"></div>
+  </section>
+
+  <section id="birthday" class="screen hidden">
+    <h1>🎉 Happy Birthday<br>Rahemat! 🎉</h1>
+
+    <div class="tree">
+      <div class="trunk"></div>
+      <div class="branch b1"></div>
+      <div class="branch b2"></div>
+      <div class="branch b3"></div>
+      <div class="branch b4"></div>
+    </div>
+
+    <div class="message">
+      ❤️ Wishing you happiness,<br>
+      beautiful moments & lots of smiles! ❤️
+      <br><br>
+      Have a wonderful birthday! 🎂✨
+    </div>
+  </section>
+
+</div>
+
+<script>
+const start=document.getElementById("start");
+const game=document.getElementById("game");
+const birthday=document.getElementById("birthday");
+const play=document.getElementById("play");
+const arrow=document.getElementById("arrow");
+const target=document.getElementById("target");
+const burst=document.getElementById("burst");
+
+let dragging=false;
+let done=false;
+
+play.onclick=()=>{
+  start.classList.add("hidden");
+  game.classList.remove("hidden");
+};
+
+function point(e){
+  return e.touches ? e.touches[0] : e;
+}
+
+function dragStart(e){
+  if(done)return;
+  dragging=true;
+  arrow.setPointerCapture?.(e.pointerId);
+}
+
+function dragMove(e){
+  if(!dragging||done)return;
+  e.preventDefault();
+
+  const p=point(e);
+  const r=document.getElementById("app").getBoundingClientRect();
+
+  let x=p.clientX-r.left-41;
+  let y=p.clientY-r.top-41;
+
+  x=Math.max(5,Math.min(x,r.width-87));
+  y=Math.max(80,Math.min(y,r.height-100));
+
+  arrow.style.left=x+"px";
+  arrow.style.top=y+"px";
+
+  const a=arrow.getBoundingClientRect();
+  const t=target.getBoundingClientRect();
+
+  const ax=a.left+a.width/2;
+  const ay=a.top+a.height/2;
+  const tx=t.left+t.width/2;
+  const ty=t.top+t.height/2;
+
+  if(Math.hypot(ax-tx,ay-ty)<75){
+    hit();
+  }
+}
+
+function dragEnd(){
+  dragging=false;
+}
+
+function hit(){
+  if(done)return;
+  done=true;
+  dragging=false;
+
+  for(let i=0;i<35;i++){
+    const p
