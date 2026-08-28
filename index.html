@@ -2,317 +2,218 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Rahemat ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Rahemat ❤️</title>
 
 <style>
-*{box-sizing:border-box}
-html,body{
-  margin:0;width:100%;height:100%;overflow:hidden;
-  font-family:Arial,sans-serif;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
-body{
-  background:#080b18;
-}
-#app{
-  width:100%;height:100vh;position:relative;overflow:hidden;
-  background:radial-gradient(circle at 50% 35%,#49305d,#17182f 48%,#070812);
-}
-.screen{
-  position:absolute;inset:0;display:flex;
-  align-items:center;justify-content:center;
-  flex-direction:column;
-  transition:opacity 1s,transform 1s;
-}
-.hidden{opacity:0;pointer-events:none;transform:scale(1.08)}
 
-h1{
-  color:white;text-align:center;
-  font-size:30px;
-  text-shadow:0 0 18px #ff6da6;
+body{
+  overflow:hidden;
+  font-family:Arial,sans-serif;
+  background:#fff4f7;
 }
-.sub{
-  color:#eee;font-size:16px;text-align:center;
-  margin-top:8px;
+
+#app{
+  width:100vw;
+  height:100vh;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(180deg,#fff8fa,#ffeef4);
+}
+
+.screen{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  transition:opacity 1s ease,transform 1s ease;
+}
+
+.hidden{
+  opacity:0;
+  pointer-events:none;
+  transform:scale(1.08);
+}
+
+/* START */
+#start h1{
+  color:#d84b75;
+  font-size:clamp(28px,8vw,46px);
+  margin-bottom:25px;
+}
+
+.heart{
+  font-size:90px;
+  animation:beat 1.2s infinite;
+  filter:drop-shadow(0 0 18px #ff8fab);
 }
 
 #play{
-  margin-top:35px;padding:15px 32px;
-  border:0;border-radius:30px;
-  background:#ff5b99;color:white;
-  font-size:18px;font-weight:bold;
-  box-shadow:0 0 25px #ff5b99;
+  margin-top:35px;
+  border:0;
+  padding:15px 38px;
+  border-radius:40px;
+  background:#e95b82;
+  color:white;
+  font-size:20px;
+  font-weight:bold;
+  box-shadow:0 8px 25px #e95b8266;
+  cursor:pointer;
 }
 
-#game h2{
-  position:absolute;top:7%;width:100%;
-  text-align:center;color:white;font-size:25px;
+/* GAME */
+#game{
+  justify-content:flex-start;
+}
+
+.game-title{
+  margin-top:60px;
+  color:#c94770;
+  font-size:25px;
 }
 
 #target{
   position:absolute;
-  right:12%;top:42%;
-  width:95px;height:95px;
+  right:28px;
+  top:45%;
+  width:75px;
+  height:75px;
+  border:3px dashed #ed6d91;
   border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:58px;
-  animation:pulse 1s infinite;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:38px;
 }
 
 #arrow{
   position:absolute;
-  left:12%;top:43%;
-  width:82px;height:82px;
-  border-radius:50%;
-  background:#ff4f91;
-  display:flex;align-items:center;justify-content:center;
-  font-size:45px;
-  box-shadow:0 0 30px #ff4f91;
+  left:30px;
+  bottom:80px;
+  font-size:55px;
   touch-action:none;
   user-select:none;
+  cursor:grab;
 }
 
-#hint{
-  position:absolute;bottom:12%;
-  width:100%;text-align:center;color:white;
-}
-
-@keyframes pulse{
-  50%{transform:scale(1.15)}
-}
-
-#burst{
-  position:absolute;inset:0;pointer-events:none;
-}
-
-.particle{
-  position:absolute;font-size:25px;
-  animation:explode 1.3s forwards;
-}
-@keyframes explode{
-  to{
-    transform:translate(var(--x),var(--y)) scale(0);
-    opacity:0;
-  }
-}
-
+/* BIRTHDAY */
 #birthday{
-  background:
-    radial-gradient(circle at 50% 25%,#4b315d,#17172d 55%,#070812);
-}
-
-#birthday h1{
-  font-size:39px;
-  margin:0;
-  animation:zoom 1.4s ease forwards;
-}
-
-@keyframes zoom{
-  from{transform:scale(.3);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
-
-.tree{
-  position:relative;
-  width:280px;height:390px;
-  margin-top:20px;
-}
-
-.trunk{
-  position:absolute;
-  bottom:0;left:50%;
-  width:24px;height:210px;
-  transform:translateX(-50%);
-  background:#75442e;
-  border-radius:20px;
-}
-
-.branch{
-  position:absolute;
-  height:13px;
-  background:#75442e;
-  border-radius:20px;
-  transform-origin:left;
-}
-.b1{left:50%;bottom:150px;width:130px;transform:rotate(-43deg)}
-.b2{left:50%;bottom:125px;width:125px;transform:rotate(43deg)}
-.b3{left:50%;bottom:95px;width:100px;transform:rotate(-62deg)}
-.b4{left:50%;bottom:75px;width:95px;transform:rotate(62deg)}
-
-.leaf{
-  position:absolute;
-  font-size:25px;
-  animation:leafIn .8s both;
-}
-@keyframes leafIn{
-  from{transform:scale(0);opacity:0}
-  to{transform:scale(1);opacity:1}
+  justify-content:flex-start;
 }
 
 .message{
-  color:#ffd5e5;
-  font-size:19px;
+  position:absolute;
+  top:45px;
   text-align:center;
-  line-height:1.5;
+  z-index:10;
+}
+
+.message h1{
+  color:#d83e6c;
+  font-size:clamp(35px,10vw,58px);
+  animation:appear 2s ease forwards;
+}
+
+.message p{
   margin-top:10px;
-}
-</style>
-</head>
-
-<body>
-
-<div id="app">
-
-  <section id="start" class="screen">
-    <div style="font-size:70px">💖</div>
-    <h1>A Little Surprise<br>For Rahemat</h1>
-    <div class="sub">Ready for your birthday surprise? ✨</div>
-    <button id="play">START ❤️</button>
-  </section>
-
-  <section id="game" class="screen hidden">
-    <h2>🏹 Hit the Heart ❤️</h2>
-    <div id="target">❤️</div>
-    <div id="arrow">🏹</div>
-    <div id="hint">Arrow ko drag karke heart tak le jao</div>
-    <div id="burst"></div>
-  </section>
-
-  <section id="birthday" class="screen hidden">
-    <h1>🎉 Happy Birthday<br>Rahemat! 🎉</h1>
-
-    <div class="tree">
-      <div class="trunk"></div>
-      <div class="branch b1"></div>
-      <div class="branch b2"></div>
-      <div class="branch b3"></div>
-      <div class="branch b4"></div>
-    </div>
-
-    <div class="message">
-      ❤️ Wishing you happiness,<br>
-      beautiful moments & lots of smiles! ❤️
-      <br><br>
-      Have a wonderful birthday! 🎂✨
-    </div>
-  </section>
-
-</div>
-
-<script>
-const start = document.getElementById("start");
-const game = document.getElementById("game");
-const birthday = document.getElementById("birthday");
-const play = document.getElementById("play");
-const arrow = document.getElementById("arrow");
-const target = document.getElementById("target");
-const burst = document.getElementById("burst");
-
-let dragging = false;
-let done = false;
-
-play.addEventListener("click", function () {
-  start.classList.add("hidden");
-  game.classList.remove("hidden");
-});
-
-arrow.addEventListener("pointerdown", function (e) {
-  if (done) return;
-  dragging = true;
-  arrow.setPointerCapture(e.pointerId);
-});
-
-arrow.addEventListener("pointermove", function (e) {
-  if (!dragging || done) return;
-
-  const rect = document.getElementById("app").getBoundingClientRect();
-
-  let x = e.clientX - rect.left - 41;
-  let y = e.clientY - rect.top - 41;
-
-  x = Math.max(5, Math.min(x, rect.width - 87));
-  y = Math.max(80, Math.min(y, rect.height - 100));
-
-  arrow.style.left = x + "px";
-  arrow.style.top = y + "px";
-
-  const a = arrow.getBoundingClientRect();
-  const t = target.getBoundingClientRect();
-
-  const ax = a.left + a.width / 2;
-  const ay = a.top + a.height / 2;
-  const tx = t.left + t.width / 2;
-  const ty = t.top + t.height / 2;
-
-  if (Math.hypot(ax - tx, ay - ty) < 75) {
-    hit();
-  }
-});
-
-arrow.addEventListener("pointerup", function () {
-  dragging = false;
-});
-
-function hit() {
-  if (done) return;
-
-  done = true;
-  dragging = false;
-
-  for (let i = 0; i < 35; i++) {
-    const particle = document.createElement("div");
-
-    particle.className = "particle";
-    particle.textContent =
-      ["❤️", "💖", "✨", "💕", "⭐"][
-        Math.floor(Math.random() * 5)
-      ];
-
-    particle.style.left = "50%";
-    particle.style.top = "45%";
-
-    particle.style.setProperty(
-      "--x",
-      (Math.random() - 0.5) * 500 + "px"
-    );
-
-    particle.style.setProperty(
-      "--y",
-      (Math.random() - 0.5) * 500 + "px"
-    );
-
-    burst.appendChild(particle);
-  }
-
-  setTimeout(function () {
-    game.classList.add("hidden");
-    birthday.classList.remove("hidden");
-    growTree();
-  }, 1000);
+  color:#9c5269;
+  font-size:20px;
 }
 
-function growTree() {
-  const tree = document.querySelector(".tree");
-
-  const positions = [
-    [48,18], [36,25], [60,27],
-    [27,37], [49,35], [70,39],
-    [18,49], [35,48], [55,47],
-    [78,51], [25,60], [45,58],
-    [65,60], [38,70], [57,70]
-  ];
-
-  positions.forEach(function (pos, i) {
-    setTimeout(function () {
-      const leaf = document.createElement("div");
-
-      leaf.className = "leaf";
-      leaf.textContent = "❤️";
-      leaf.style.left = pos[0] + "%";
-      leaf.style.top = pos[1] + "%";
-
-      tree.appendChild(leaf);
-    }, i * 180);
-  });
+/* TREE */
+.tree{
+  position:absolute;
+  width:90vw;
+  max-width:430px;
+  height:70vh;
+  bottom:0;
 }
-</script>
+
+/* trunk */
+.trunk{
+  position:absolute;
+  bottom:-20px;
+  left:50%;
+  width:38px;
+  height:48%;
+  transform:translateX(-50%);
+  background:linear-gradient(90deg,#71442b,#a86b45,#704229);
+  border-radius:20px 20px 8px 8px;
+}
+
+/* heart branches */
+.branch{
+  position:absolute;
+  width:10px;
+  height:230px;
+  background:#805033;
+  border-radius:10px;
+  bottom:35%;
+  left:50%;
+  transform-origin:bottom center;
+}
+
+.b1{transform:rotate(-48deg)}
+.b2{transform:rotate(48deg)}
+.b3{transform:rotate(-27deg);height:260px}
+.b4{transform:rotate(27deg);height:260px}
+.b5{transform:rotate(-8deg);height:220px}
+.b6{transform:rotate(8deg);height:220px}
+
+.flower{
+  position:absolute;
+  font-size:25px;
+  opacity:0;
+  animation:flowerIn .8s ease forwards;
+}
+
+.f1{left:17%;top:27%;animation-delay:.2s}
+.f2{left:29%;top:18%;animation-delay:.4s}
+.f3{left:42%;top:10%;animation-delay:.6s}
+.f4{left:54%;top:10%;animation-delay:.8s}
+.f5{left:67%;top:18%;animation-delay:1s}
+.f6{left:78%;top:29%;animation-delay:1.2s}
+.f7{left:25%;top:37%;animation-delay:1.4s}
+.f8{left:40%;top:30%;animation-delay:1.6s}
+.f9{left:57%;top:30%;animation-delay:1.8s}
+.f10{left:70%;top:38%;animation-delay:2s}
+.f11{left:34%;top:48%;animation-delay:2.2s}
+.f12{left:52%;top:46%;animation-delay:2.4s}
+.f13{left:63%;top:50%;animation-delay:2.6s}
+
+/* particles */
+.particle{
+  position:absolute;
+  left:50%;
+  top:45%;
+  font-size:22px;
+  animation:burst 1.2s ease-out forwards;
+  pointer-events:none;
+}
+
+@keyframes beat{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.18)}
+}
+
+@keyframes appear{
+  from{opacity:0;transform:translateY(30px) scale(.8)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+@keyframes flowerIn{
+  from{opacity:0;transform:scale(0)}
+  to{opacity:1;transform:scale(1)}
+}
+
+@keyframes burst{
+  from{
+    opacity:1;
+    transform:translate(-50%,-50%) scale
