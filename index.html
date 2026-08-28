@@ -200,69 +200,119 @@ h1{
 </div>
 
 <script>
-const start=document.getElementById("start");
-const game=document.getElementById("game");
-const birthday=document.getElementById("birthday");
-const play=document.getElementById("play");
-const arrow=document.getElementById("arrow");
-const target=document.getElementById("target");
-const burst=document.getElementById("burst");
+const start = document.getElementById("start");
+const game = document.getElementById("game");
+const birthday = document.getElementById("birthday");
+const play = document.getElementById("play");
+const arrow = document.getElementById("arrow");
+const target = document.getElementById("target");
+const burst = document.getElementById("burst");
 
-let dragging=false;
-let done=false;
+let dragging = false;
+let done = false;
 
-play.onclick=()=>{
+play.addEventListener("click", function () {
   start.classList.add("hidden");
   game.classList.remove("hidden");
-};
+});
 
-function point(e){
-  return e.touches ? e.touches[0] : e;
-}
+arrow.addEventListener("pointerdown", function (e) {
+  if (done) return;
+  dragging = true;
+  arrow.setPointerCapture(e.pointerId);
+});
 
-function dragStart(e){
-  if(done)return;
-  dragging=true;
-  arrow.setPointerCapture?.(e.pointerId);
-}
+arrow.addEventListener("pointermove", function (e) {
+  if (!dragging || done) return;
 
-function dragMove(e){
-  if(!dragging||done)return;
-  e.preventDefault();
+  const rect = document.getElementById("app").getBoundingClientRect();
 
-  const p=point(e);
-  const r=document.getElementById("app").getBoundingClientRect();
+  let x = e.clientX - rect.left - 41;
+  let y = e.clientY - rect.top - 41;
 
-  let x=p.clientX-r.left-41;
-  let y=p.clientY-r.top-41;
+  x = Math.max(5, Math.min(x, rect.width - 87));
+  y = Math.max(80, Math.min(y, rect.height - 100));
 
-  x=Math.max(5,Math.min(x,r.width-87));
-  y=Math.max(80,Math.min(y,r.height-100));
+  arrow.style.left = x + "px";
+  arrow.style.top = y + "px";
 
-  arrow.style.left=x+"px";
-  arrow.style.top=y+"px";
+  const a = arrow.getBoundingClientRect();
+  const t = target.getBoundingClientRect();
 
-  const a=arrow.getBoundingClientRect();
-  const t=target.getBoundingClientRect();
+  const ax = a.left + a.width / 2;
+  const ay = a.top + a.height / 2;
+  const tx = t.left + t.width / 2;
+  const ty = t.top + t.height / 2;
 
-  const ax=a.left+a.width/2;
-  const ay=a.top+a.height/2;
-  const tx=t.left+t.width/2;
-  const ty=t.top+t.height/2;
-
-  if(Math.hypot(ax-tx,ay-ty)<75){
+  if (Math.hypot(ax - tx, ay - ty) < 75) {
     hit();
   }
+});
+
+arrow.addEventListener("pointerup", function () {
+  dragging = false;
+});
+
+function hit() {
+  if (done) return;
+
+  done = true;
+  dragging = false;
+
+  for (let i = 0; i < 35; i++) {
+    const particle = document.createElement("div");
+
+    particle.className = "particle";
+    particle.textContent =
+      ["❤️", "💖", "✨", "💕", "⭐"][
+        Math.floor(Math.random() * 5)
+      ];
+
+    particle.style.left = "50%";
+    particle.style.top = "45%";
+
+    particle.style.setProperty(
+      "--x",
+      (Math.random() - 0.5) * 500 + "px"
+    );
+
+    particle.style.setProperty(
+      "--y",
+      (Math.random() - 0.5) * 500 + "px"
+    );
+
+    burst.appendChild(particle);
+  }
+
+  setTimeout(function () {
+    game.classList.add("hidden");
+    birthday.classList.remove("hidden");
+    growTree();
+  }, 1000);
 }
 
-function dragEnd(){
-  dragging=false;
+function growTree() {
+  const tree = document.querySelector(".tree");
+
+  const positions = [
+    [48,18], [36,25], [60,27],
+    [27,37], [49,35], [70,39],
+    [18,49], [35,48], [55,47],
+    [78,51], [25,60], [45,58],
+    [65,60], [38,70], [57,70]
+  ];
+
+  positions.forEach(function (pos, i) {
+    setTimeout(function () {
+      const leaf = document.createElement("div");
+
+      leaf.className = "leaf";
+      leaf.textContent = "❤️";
+      leaf.style.left = pos[0] + "%";
+      leaf.style.top = pos[1] + "%";
+
+      tree.appendChild(leaf);
+    }, i * 180);
+  });
 }
-
-function hit(){
-  if(done)return;
-  done=true;
-  dragging=false;
-
-  for(let i=0;i<35;i++){
-    const p
+</script>
